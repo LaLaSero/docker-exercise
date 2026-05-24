@@ -1,0 +1,13 @@
+volumes:
+  wp_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/yutakagi/data/wordpress
+      o: bind
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/yutakagi/data/mariadb
+      o: bind

@@ -1,0 +1,63 @@
+services:
+  nginx:
+    build: ./requirements/nginx
+    image: nginx:debian12
+    container_name: nginx
+    init: true
+    ports:
+      - "443:443"
+    volumes:
+      - wp_files:/var/www/html:ro
+    depends_on:
+      - wordpress
+      - mariadb
+    restart: always
+    networks:
+      - 42-inception-network
+    env_file:
+      - ./.env
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress:debian12
+    container_name: wordpress
+    init: true
+    volumes:
+      - wp_files:/var/www/html
+    depends_on:
+      - mariadb
+    restart: always
+    networks:
+      - 42-inception-network
+    env_file:
+      - ./.env
+
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb:debian12
+    container_name: mariadb
+    init: true
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - 42-inception-network
+    env_file:
+      - ./.env
+
+volumes:
+  wp_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/yutakagi/data/wordpress
+      o: bind
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/yutakagi/data/mariadb
+      o: bind
+
+networks:
+  42-inception-network:
