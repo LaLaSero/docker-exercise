@@ -1,0 +1,5 @@
+srcs/.env
+srcs/docker-compose.macos.yml
+secrets/*
+
+.DS_Store
