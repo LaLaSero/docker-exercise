@@ -32,3 +32,23 @@ After these changes, rebuild images before starting:
 make build
 make up
 ```
+
+
+主な通常ターゲット(42 環境)
+
+make prepare   # /home/yutakagi/data/... を作成
+make build     # 42VM用構成でビルド
+make up        # 42VM用構成で build + 起動
+make down      # コンテナ停止・削除、volumeは残す
+make clean     # コンテナ停止・削除、volumeとlocal imageも削除
+make fclean    # clean + /home/yutakagi/data/... も削除
+make re        # fclean してから up
+
+macos の確認用のコマンド
+
+make mac-prepare  # /Users/yutakagi/data/... を作成し、macOS overrideを用意
+make mac-up       # macOS用構成で build + 起動
+make mac-down     # macOS用構成で停止・削除、volumeは残す
+make mac-clean    # macOS用構成で停止・削除、volumeとlocal imageも削除
+make mac-fclean   # mac-clean + /Users/yutakagi/data/... も削除
+make mac-re       # mac-fclean してから mac-up
